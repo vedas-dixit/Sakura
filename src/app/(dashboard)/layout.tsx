@@ -1,6 +1,8 @@
 import FriendRequestSidebarOptions from '@/components/FriendRequestSidebarOptions'
 import { Icon, Icons } from '@/components/Icons'
+import SidebarChatList from '@/components/SidebarChatList'
 import SignoutButton from '@/components/SignoutButton'
+import { getFriendsByUserId } from '@/helpers/get-friends-by-id'
 import { fetchRedis } from '@/helpers/redis'
 import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
@@ -32,7 +34,7 @@ const sidebarOptions: SidebarOptions[] = [
 const Layout = async ({ children }: layoutProps) => {
     const session = await getServerSession(authOptions)
     if (!session) notFound()
-
+    const friends = await getFriendsByUserId(session.user.id)
     const unseenrequestcount = (await 
         fetchRedis(
             'smembers', 
@@ -45,12 +47,18 @@ const Layout = async ({ children }: layoutProps) => {
             <Link href='/dashboard'>
                 <Icons.Logo className='' />
             </Link>
+            { friends.length > 0 ? (
+            
             <div>Your Chats</div>
+            
+            ): null}
             <nav>
                 <ul>
+
                     <li>
-                    //Chat That User HAs
+                        <SidebarChatList sessionId={session.user.id} friends={friends}/>
                     </li>
+
                     <li>
                         <div>
                             Overview
@@ -71,12 +79,13 @@ const Layout = async ({ children }: layoutProps) => {
                                     </li>
                                 )
                             })}
+                            <li>
+                        <FriendRequestSidebarOptions sessionId={session.user.id} initialunseenrequestcount={unseenrequestcount} />
+                    </li>
                         </ul>
                     </li>
 
-                    <li>
-                        <FriendRequestSidebarOptions sessionId={session.user.id} initialunseenrequestcount={unseenrequestcount} />
-                    </li>
+                    
 
                     <li>
                         <div>
