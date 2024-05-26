@@ -1,0 +1,14 @@
+diff --git a/node_modules/pusher-js/tsconfig.json b/node_modules/pusher-js/tsconfig.json
+index 8a997ae..fe53e86 100644
+--- a/node_modules/pusher-js/tsconfig.json
++++ b/node_modules/pusher-js/tsconfig.json
+@@ -18,7 +18,8 @@
+       "ScriptHost",
+       "DOM",
+       "ES5"
+-    ]
++    ],
++    "outDir": "./dist" 
+   },
+   "exclude": [
+     "node_modules"

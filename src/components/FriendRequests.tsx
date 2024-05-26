@@ -1,9 +1,13 @@
 'use client'
+import { pusherClient } from '@/lib/pusher'
+import { toPusherKey } from '@/lib/utils'
 import axios from 'axios'
 import { request } from 'http'
-import { Check, UserPlus, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
+
+// import { Check, UserPlus, X } from 'lucide-react'
+
+import { FC, useEffect, useState } from 'react'
 
 interface FriendRequestsProps {
     incomingFriendRequests: IncommingFriendRequest[]
@@ -18,6 +22,28 @@ const FriendRequests: FC<FriendRequestsProps> = ({
     const [FriendRequests, setFriendRequests] = useState<IncommingFriendRequest[]>(
         incomingFriendRequests
     )
+    
+    //! SOCKET web req. update
+    useEffect(()=>{
+        pusherClient.subscribe(toPusherKey(`user:${sessionId}:incomming_friend_requests`))
+        console.log("sub to1", `user:${sessionId}:incomming_friend_requests`)
+
+        const friendRequestHandler = ({senderId,senderEmail}: incomingFriendRequests) =>{
+            setFriendRequests((prev) =>[...prev,{senderId,senderEmail}])
+        }
+
+        pusherClient.bind('incomming_friend_requests',friendRequestHandler)
+        return ()=>{
+            pusherClient.unsubscribe(
+                toPusherKey(`user:${sessionId}:incomming_friend_requests`)
+            )
+            pusherClient.unbind(
+                'incomming_friend_requests',friendRequestHandler
+            )
+        }
+    },[])//! CHECKKKKKKKKKK
+    
+
 
     const acceptFriend = async(senderId: string)=>{
         await axios.post('/api/friends/accept', {id: senderId})
