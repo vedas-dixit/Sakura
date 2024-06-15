@@ -1,0 +1,15 @@
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .count{
+        background-color: #674F4F;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+        border-radius: 10px;
+    }
+}

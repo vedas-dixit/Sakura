@@ -1,0 +1,35 @@
+.form-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;  // Adjust spacing between elements
+  
+  input[type='text'] {
+    padding: 10px;  // Adjust padding inside the input
+    background-color: #e0e0e0;  // Set background color to match the image
+    border: none;  // Remove default border
+    border-radius: 5px;  // Rounded corners
+    font-size: 26px;  // Adjust font size
+    flex-grow: 1;  // Make the input take available space
+  }
+
+  .button {
+    padding: 10px 20px;  // Adjust padding inside the button
+    background-color: #e0e0e0;  // Set background color to match the image
+    border: none;  // Remove default border
+    border-radius: 5px;  // Rounded corners
+    font-size: 26px;  // Adjust font size
+    cursor: pointer;  // Change cursor to pointer on hover
+  }
+
+  .error-message {
+    color: rgb(96, 21, 21);  // Adjust color for error message
+    font-size: 14px;  // Adjust font size
+    margin-top: 5px;  // Adjust spacing
+  }
+
+  .success-message {
+    color: green;  // Adjust color for success message
+    font-size: 14px;  // Adjust font size
+    margin-top: 5px;  // Adjust spacing
+  }
+}

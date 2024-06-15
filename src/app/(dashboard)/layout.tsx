@@ -55,7 +55,12 @@ const Layout = async ({ children }: layoutProps) => {
                         <div className={styles.chatlist}>
                             {friends.length > 0 ? (
 
-                                <h1>Your Chats</h1>
+                                <h2>Your Chats</h2>
+
+                            ) : null}
+                            {friends.length === 0 ? (
+
+                                <h1>Add a Friend to overview :)</h1>
 
                             ) : null}
                             <li className={styles.chats}>
@@ -63,56 +68,61 @@ const Layout = async ({ children }: layoutProps) => {
                             </li>
                         </div>
                         <g>
-                        <li className={styles.overview}>
-                            
-                            <ul>
-                                {sidebarOptions.map((option) => {
-                                    const Icon = Icons[option.Icon]
-                                    return (
-                                        <li key={option.id}>
-                                            <Link href={option.herf}>
-                                                <span>
-                                                    <Icon></Icon>
-                                                </span>
-                                                <span>
-                                                    {option.name}
-                                                </span>
-                                            </Link>
-                                        </li>
-                                    )
-                                })}
-                                <li>
-                                    <FriendRequestSidebarOptions sessionId={session.user.id} initialunseenrequestcount={unseenrequestcount} />
-                                </li>
-                            </ul>
-                        </li>
+                            <li className={styles.overview}>
+
+                                <ul>
+                                    {sidebarOptions.map((option) => {
+                                        const Icon = Icons[option.Icon]
+                                        return (
+                                            
+                                            <g>
+                                                <li key={option.id}>
+                                                    <Link href={option.herf}>
+                                                        <span>
+                                                            <Icon></Icon>
+                                                        </span>
+                                                        <span>
+                                                            {option.name}
+                                                        </span>
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <FriendRequestSidebarOptions sessionId={session.user.id} initialunseenrequestcount={unseenrequestcount} />
+                                                </li>
+                                            </g>
+                                            
+                                        )
+                                    })}
+
+                                </ul>
+                            </li>
 
 
 
-                        <li className={styles.profilemain}>
-                            <div className={styles.profilesec}>
-                                 
-                                <div className={styles.userimg}>
-                                    <Image
-                                        width={60}
-                                        height={60}
+                            <li className={styles.profilemain}>
+                                <div className={styles.profilesec}>
 
-                                        referrerPolicy='no-referrer'
-                                        src={session.user.image || ''}
-                                        alt='profile pic'
-                                    />
+                                    <div className={styles.userimg}>
+                                        <Image
+                                            width={60}
+                                            height={60}
+
+                                            referrerPolicy='no-referrer'
+                                            src={session.user.image || ''}
+                                            alt='profile pic'
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <span>{session.user.name}</span>
+                                        <span>
+                                            {session.user.email}
+                                        </span>
+                                    </div>
+                                    <SignoutButton></SignoutButton>
                                 </div>
-                                
-                                <div>
-                                    <span>{session.user.name}</span>
-                                    <span>
-                                        {session.user.email}
-                                    </span>
-                                </div>
-                                <SignoutButton></SignoutButton>
-                            </div>
-                            
-                        </li>
+
+                            </li>
 
                         </g>
                     </ul>

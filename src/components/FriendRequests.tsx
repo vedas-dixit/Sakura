@@ -6,8 +6,9 @@ import { request } from 'http'
 import { useRouter } from 'next/navigation'
 
 // import { Check, UserPlus, X } from 'lucide-react'
-
+import styles from './comp_style/FriendRequests_style.module.scss'
 import { FC, useEffect, useState } from 'react'
+import Image from 'next/image'
 
 interface FriendRequestsProps {
     incomingFriendRequests: IncommingFriendRequest[]
@@ -62,19 +63,23 @@ const FriendRequests: FC<FriendRequestsProps> = ({
     }
 
 
-    return <>
-        {FriendRequests.length === 0 ? (
-            <p>Nothing to show here...</p>
-        ) : (
-            FriendRequests.map((reqs) =>
-                <>
-                <h1>{reqs.senderEmail}</h1>
-                <button onClick={() => acceptFriend(reqs.senderId)} style={{width:"20px", height:"20px", backgroundColor:"wheat"}}>+</button>
-                <button  onClick={() => denyFriend(reqs.senderId)} style={{width:"20px", height:"20px", backgroundColor:"wheat"}}>-</button>
-                </>
-            )
-        )}
-    </>
+    return (
+        <>
+            {FriendRequests.length === 0 ? (
+                <p className="nothing-to-show">Nothing to show here...</p>
+            ) : (
+                FriendRequests.map((reqs) => (
+                    <div key={reqs.senderId} className={styles.friendreq}>
+                        <h1>{reqs.senderEmail}</h1>
+                        <g>
+                        <button className="accept-button" onClick={() => acceptFriend(reqs.senderId)}>+</button>
+                        <button className="deny-button" onClick={() => denyFriend(reqs.senderId)}>-</button>
+                        </g>
+                    </div>
+                ))
+            )}
+        </>
+    );
 }
 
 export default FriendRequests

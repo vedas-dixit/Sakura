@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'
 import { FC } from 'react'
-
+import styles from './style.module.scss'
 
 const page = async () => {
     const session = await getServerSession(authOptions)
@@ -28,7 +28,7 @@ const page = async () => {
     console.log("incommingfriendrequests",incommingfriendrequests)
 
     
-    return <main>
+    return <main className={styles.main}>
         <h1>Friend Requests</h1>
         <div>
             <FriendRequests incomingFriendRequests={incommingfriendrequests} sessionId={session.user.id}/>

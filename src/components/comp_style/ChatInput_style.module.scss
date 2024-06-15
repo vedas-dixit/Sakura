@@ -1,0 +1,38 @@
+.input_container {
+    display: flex;
+    align-items: center;
+    background-color: #444;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+
+    textarea {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #fff;
+        resize: none;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        outline: none;
+
+        &::placeholder {
+            color: #b0b0b0;
+        }
+    }
+
+    button {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        margin-left: 10px;
+        cursor: pointer;
+
+        &:disabled {
+            background-color: #555;
+        }
+    }
+}

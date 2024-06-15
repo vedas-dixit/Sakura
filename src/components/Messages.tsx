@@ -6,12 +6,13 @@ import Image from 'next/image'
 import { pusherClient } from '@/lib/pusher'
 import { toPusherKey } from '@/lib/utils'
 import styles from './comp_style/Messages_style.module.scss'
+
 interface MessagesProps {
     initialMessages: Message[]
     sessionId: string
     chatId: string
     SessionImg: string | null | undefined
-    chatPartner:User
+    chatPartner: User
 }
 
 const Messages: FC<MessagesProps> = ({ SessionImg, chatPartner, initialMessages, sessionId, chatId }) => {
@@ -22,67 +23,41 @@ const Messages: FC<MessagesProps> = ({ SessionImg, chatPartner, initialMessages,
         return format(new Date(timestamp), 'HH:mm')
     }
 
-
-    useEffect(()=>{
+    useEffect(() => {
         pusherClient.subscribe(toPusherKey(`chat:${chatId}`))
-        const messageHandler =(message: Message)=>{
-            SetMessage((prev)=> [...prev,message])
+        const messageHandler = (message: Message) => {
+            SetMessage((prev) => [...prev, message])
         }
-       
 
-        pusherClient.bind('incomming_message',messageHandler)
-        return ()=>{
-            pusherClient.unsubscribe(
-                toPusherKey(`chat:${chatId}`)
-            )
-            pusherClient.unbind(
-                'incomming_message',messageHandler
-            )
+        pusherClient.bind('incomming_message', messageHandler)
+        return () => {
+            pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`))
+            pusherClient.unbind('incomming_message', messageHandler)
         }
-    },[])
-    
+    }, [])
 
-
-
-
+    useEffect(() => {
+        scrollDownref.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [message])
 
     return (
-        <div id='messages'>
-            <div ref={scrollDownref} />
+        <div className={styles.main}>
             {message.map((msg, idx) => {
-                const iscurrentUser = msg.senderId === sessionId
-                const hasNextMessageFromSameUser = message[idx - 1]?.senderId === message[idx].senderId
+                const isCurrentUser = msg.senderId === sessionId
 
                 return (
-                    <div className={styles.main} key={`${msg.id}-${msg.timestamp}`}>
-                        {/* //! image from messages */}
-                        {/* <div className={styles.imgs}>
-                            <Image width={35} height={35} alt='user' src={
-                                iscurrentUser?(SessionImg as string): chatPartner.image
-                            }
-                            referrerPolicy='no-referrer'
-                            ></Image>
-                        </div> */}
-                        <div className={styles.msgs}>
-                            <span>
-                                {iscurrentUser && (
-                                    <div style={{ backgroundColor: "yellow" }}>
-                                        {msg.text}{' '}
-                                        <span>{formatTimeStamp(msg.timestamp)}</span>
-                                    </div>
-                                )}
-                                {!iscurrentUser && (
-                                    <div style={{ backgroundColor: "wheat" }}>
-                                        {msg.text}{' '}
-                                        <span>{formatTimeStamp(msg.timestamp)}</span>
-                                    </div>
-                                )}
-                            </span>
+                    <div
+                        key={`${msg.id}-${msg.timestamp}`}
+                        className={`${styles.message} ${isCurrentUser ? styles.sent : styles.received}`}
+                    >
+                        <div className={styles.text}>
+                            {msg.text}
+                            <div className={styles.timestamp}>{formatTimeStamp(msg.timestamp)}</div>
                         </div>
-                        
                     </div>
                 )
             })}
+            <div ref={scrollDownref} />
         </div>
     )
 }

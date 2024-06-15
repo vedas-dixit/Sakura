@@ -6,14 +6,21 @@ import { addFriendValidator } from '@/lib/validations/add-friend'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import styles from './comp_style/addfriend_style.module.scss'
+
 interface AddFriendBtnProps { }
 
 type FormData = z.infer<typeof addFriendValidator>
 
 const AddFriendBtn: FC<AddFriendBtnProps> = ({ }) => {
-  const [showSucessStatus, setshowSucessStatus] = useState<boolean>(false);
+  const [showSuccessStatus, setShowSuccessStatus] = useState<boolean>(false)
 
-  const { register, handleSubmit, setError, formState: { errors } } = useForm<FormData>({
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<FormData>({
     resolver: zodResolver(addFriendValidator),
   })
 
@@ -22,9 +29,8 @@ const AddFriendBtn: FC<AddFriendBtnProps> = ({ }) => {
       const validateEmail = addFriendValidator.parse({ email })
       await axios.post('/api/friends/add', {
         email: validateEmail,
-
       })
-      setshowSucessStatus(true);
+      setShowSuccessStatus(true)
     } catch (error) {
       if (error instanceof z.ZodError) {
         setError('email', { message: error.message })
@@ -39,23 +45,30 @@ const AddFriendBtn: FC<AddFriendBtnProps> = ({ }) => {
   }
 
   const onSubmit = (data: FormData) => {
-    addFriend(data.email);
+    addFriend(data.email)
   }
 
-  return <form onSubmit={handleSubmit(onSubmit)}>
-    <label htmlFor='email'>
-      Add Friend By Email
-    </label>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className={styles['form-container']}>
 
-    <div>
-      <input {...register('email')} type='text' placeholder='you@example.com' />
-    </div>
-    <Button>Add</Button>
-    <p>{errors.email?.message}</p>
-    {showSucessStatus ? (
-      <p>Friend Request Sent!</p>
-    ) : null}
-  </form>
+
+      <div>
+        <input
+          {...register('email')}
+          type='text'
+          placeholder='your_friend@gmail.com'
+          className={styles.input}
+        />
+      </div>
+      <Button className={styles.button}>Add</Button>
+      <p className={styles['error-message']}>{errors.email?.message}</p>
+      {showSuccessStatus && (
+        <p className={styles['success-message']}>Friend Request Sent!</p>
+      )}
+      
+      
+    </form>
+  )
 }
 
 export default AddFriendBtn

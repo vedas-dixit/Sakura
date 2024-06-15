@@ -1,0 +1,44 @@
+.friendreq {
+    margin-bottom: 10px;
+    border: 1px solid lightgray;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+    justify-content: space-between;
+    &:hover {
+      transform: scale(1.01);
+    }
+  
+    h1 {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+  
+    button {
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      margin-right: 5px;
+      transition: background-color 0.3s ease;
+        font-size: 20px;
+      &:hover {
+        filter: brightness(0.9);
+      }
+    }
+  
+    .accept-button {
+      background-color: lightgreen;
+    }
+  
+    .deny-button {
+      background-color: lightcoral;
+    }
+  }
+  
+  .nothing-to-show {
+    color: gray;
+  }

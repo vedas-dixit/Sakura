@@ -1,13 +1,16 @@
 import AddFriendBtn from '@/components/AddFriendBtn'
 import { FC } from 'react'
+import styles from './style.module.scss'
+const page: FC = ({ }) => {
 
-const page: FC = ({}) => {
-  
-  return <main>
-    <h1 >Add a Friend</h1>
-    <AddFriendBtn/>
+  return (
+    <main className={styles.main}>
+      <p>add a</p>
+      <h1 >Friend</h1>
+      <AddFriendBtn />
 
-  </main>
+    </main>
+  )
 }
 
 export default page
