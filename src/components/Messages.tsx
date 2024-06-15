@@ -5,7 +5,7 @@ import { format } from 'date-fns'
 import Image from 'next/image'
 import { pusherClient } from '@/lib/pusher'
 import { toPusherKey } from '@/lib/utils'
-
+import styles from './comp_style/Messages_style.module.scss'
 interface MessagesProps {
     initialMessages: Message[]
     sessionId: string
@@ -54,8 +54,16 @@ const Messages: FC<MessagesProps> = ({ SessionImg, chatPartner, initialMessages,
                 const hasNextMessageFromSameUser = message[idx - 1]?.senderId === message[idx].senderId
 
                 return (
-                    <div key={`${msg.id}-${msg.timestamp}`}>
-                        <div>
+                    <div className={styles.main} key={`${msg.id}-${msg.timestamp}`}>
+                        {/* //! image from messages */}
+                        {/* <div className={styles.imgs}>
+                            <Image width={35} height={35} alt='user' src={
+                                iscurrentUser?(SessionImg as string): chatPartner.image
+                            }
+                            referrerPolicy='no-referrer'
+                            ></Image>
+                        </div> */}
+                        <div className={styles.msgs}>
                             <span>
                                 {iscurrentUser && (
                                     <div style={{ backgroundColor: "yellow" }}>
@@ -71,13 +79,7 @@ const Messages: FC<MessagesProps> = ({ SessionImg, chatPartner, initialMessages,
                                 )}
                             </span>
                         </div>
-                        <div>
-                            <Image width={20} height={20} alt='user' src={
-                                iscurrentUser?(SessionImg as string): chatPartner.image
-                            }
-                            referrerPolicy='no-referrer'
-                            ></Image>
-                        </div>
+                        
                     </div>
                 )
             })}

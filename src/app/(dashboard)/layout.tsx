@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { FC, ReactNode } from 'react'
-
+import styles from './styles.module.scss'
 interface layoutProps {
     children: ReactNode
 }
@@ -35,85 +35,94 @@ const Layout = async ({ children }: layoutProps) => {
     const session = await getServerSession(authOptions)
     if (!session) notFound()
     const friends = await getFriendsByUserId(session.user.id)
-    const unseenrequestcount = (await 
+    const unseenrequestcount = (await
         fetchRedis(
-            'smembers', 
+            'smembers',
             `user:${session.user.id}:incomming_friend_requests`
         ) as User[]
     ).length
 
-    return <div>
-        <div>
-            <Link href='/dashboard'>
-                <Icons.Logo className='' />
-            </Link>
-            { friends.length > 0 ? (
-            
-            <div>Your Chats</div>
-            
-            ): null}
-            <nav>
-                <ul>
+    return (
+        <div className={styles.main}>
+            <div className={styles.leftchild}>
+                <Link href='/dashboard'>
+                    <Icons.Logo className='' />
+                </Link>
 
-                    <li>
-                        <SidebarChatList sessionId={session.user.id} friends={friends}/>
-                    </li>
+                <nav>
 
-                    <li>
-                        <div>
-                            Overview
+                    <ul>
+                        <div className={styles.chatlist}>
+                            {friends.length > 0 ? (
+
+                                <h1>Your Chats</h1>
+
+                            ) : null}
+                            <li className={styles.chats}>
+                                <SidebarChatList sessionId={session.user.id} friends={friends} />
+                            </li>
                         </div>
-                        <ul>
-                            {sidebarOptions.map((option) => {
-                                const Icon = Icons[option.Icon]
-                                return (
-                                    <li key={option.id}>
-                                        <Link href={option.herf}>
-                                            <span>
-                                                <Icon></Icon>
-                                            </span>
-                                            <span>
-                                                {option.name}
-                                            </span>
-                                        </Link>
-                                    </li>
-                                )
-                            })}
-                            <li>
-                        <FriendRequestSidebarOptions sessionId={session.user.id} initialunseenrequestcount={unseenrequestcount} />
-                    </li>
-                        </ul>
-                    </li>
+                        <g>
+                        <li className={styles.overview}>
+                            
+                            <ul>
+                                {sidebarOptions.map((option) => {
+                                    const Icon = Icons[option.Icon]
+                                    return (
+                                        <li key={option.id}>
+                                            <Link href={option.herf}>
+                                                <span>
+                                                    <Icon></Icon>
+                                                </span>
+                                                <span>
+                                                    {option.name}
+                                                </span>
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
+                                <li>
+                                    <FriendRequestSidebarOptions sessionId={session.user.id} initialunseenrequestcount={unseenrequestcount} />
+                                </li>
+                            </ul>
+                        </li>
 
-                    
 
-                    <li>
-                        <div>
-                            <div className='userimage'>
-                                <Image
-                                    width={100}
-                                    height={100}
 
-                                    referrerPolicy='no-referrer'
-                                    src={session.user.image || ''}
-                                    alt='profile pic'
-                                />
+                        <li className={styles.profilemain}>
+                            <div className={styles.profilesec}>
+                                 
+                                <div className={styles.userimg}>
+                                    <Image
+                                        width={60}
+                                        height={60}
+
+                                        referrerPolicy='no-referrer'
+                                        src={session.user.image || ''}
+                                        alt='profile pic'
+                                    />
+                                </div>
+                                
+                                <div>
+                                    <span>{session.user.name}</span>
+                                    <span>
+                                        {session.user.email}
+                                    </span>
+                                </div>
+                                <SignoutButton></SignoutButton>
                             </div>
-                            <span>Your Profile</span>
-                            <div>
-                                <span>{session.user.name}</span>
-                                <span>
-                                    {session.user.email}
-                                </span>
-                            </div>
-                        </div>
-                        <SignoutButton></SignoutButton>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        {children}
-    </div>
+                            
+                        </li>
+
+                        </g>
+                    </ul>
+                </nav>
+            </div>
+            <div className={styles.rightchild}>
+                {children}
+            </div>
+
+        </div>)
 }
 
 export default Layout

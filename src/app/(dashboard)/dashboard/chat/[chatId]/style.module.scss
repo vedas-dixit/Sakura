@@ -1,0 +1,21 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    .img_name{
+        display: flex;
+        align-items: center;
+        img{
+            border-radius: 40px;
+            margin-right: 11px;
+        }
+
+        .name_email{
+            span{
+                font-size: 20px;
+            }
+            p{
+                font-size: 15px;
+            }
+        }
+    }
+}

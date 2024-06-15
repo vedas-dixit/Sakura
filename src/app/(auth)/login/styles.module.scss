@@ -1,52 +1,60 @@
-.loginPage {
+.loginPage{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(33, 30, 33, 1);
+  .loginContainer{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
-    background-color: #f2f2f2;
-  
-    .loginContainer {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        color: rgb(34, 34, 34);
-      h2 {
-        margin-bottom: 20px;
-      }
-  
-      .loginForm {
-        display: flex;
-        flex-direction: column;
-  
-        .formGroup {
-          margin-bottom: 10px;
-  
-          label {
-            font-weight: bold;
-          }
-  
-          input {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            background-color: #007bff;
-          }
-        }
-      }
-  
-      .button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-  
-        &:hover {
-          background-color: #0056b3;
-        }
-      }
+    justify-content: center;
+    h2{
+      font-size: 20vw;
+      color: #FFDCDC ;
+      opacity: 31%;
+    }
+    
+    a{
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    
     }
   }
+}
+
+.googlelogo {
+  font-family: 'Product Sans', sans-serif; /* Google uses Product Sans font for their logo */
+  font-size: 48px; /* Adjust size as needed */
+  font-weight: bold;
+  display: flex;
+}
+
+.g {
+  color: #4285F4; /* Blue */
+}
+
+.o1 {
+  color: #EA4335; /* Red */
+}
+
+.o2 {
+  color: #FBBC05; /* Yellow */
+}
+
+.gl {
+  color: #4285F4; /* Blue */
+}
+
+.l {
+  color: #34A853; /* Green */
+}
+
+.e {
+  color: #EA4335; /* Red */
+}

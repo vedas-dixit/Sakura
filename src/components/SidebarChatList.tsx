@@ -5,7 +5,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import UnseenChatToast from './UnseenChatToast'
-
+import Image from 'next/image'
+import styles from './comp_style/Sidebarchatlist_style.module.scss'
 interface SidebarChatListProps {
   friends: User[]
   sessionId: string
@@ -79,10 +80,16 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ sessionId, friends }) => {
           return unseenMsg.senderId === friend.id
         }).length
         return (
-          <li key={friend.id}>
-            <a href={`/dashboard/chat/${chatHerfConstructor(sessionId, friend.id)}`}>
-              {friend.name}
-              {unseenMessageCount > 0 ? (<div>{unseenMessageCount}</div>) : null}
+          <li className={styles.main} key={friend.id}>
+            <a  className={styles.links} href={`/dashboard/chat/${chatHerfConstructor(sessionId, friend.id)}`}>
+              <Image
+              alt='profileimg'
+              src={friend.image}
+              width={40}
+              height={40}
+              />
+              <h3 className={styles.name}>{friend.name}</h3>
+              {unseenMessageCount > 0 ? (<div className={styles.msgcount}>{unseenMessageCount}</div>) : null}
             </a>
           </li>
         )

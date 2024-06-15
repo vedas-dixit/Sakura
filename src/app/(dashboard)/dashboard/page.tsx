@@ -9,6 +9,7 @@ import { getFriendsByUserId } from "@/helpers/get-friends-by-id";
 import { fetchRedis } from "@/helpers/redis";
 import { chatHerfConstructor } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import styles from './style.module.scss'
 interface pageProps { }
 
 const page = async ({ }) => {
@@ -29,30 +30,40 @@ const page = async ({ }) => {
   console.log("friendwithlastmessqage", friendwithLastmessage)
   return <div>
     {/* <pre>{JSON.stringify(session)}</pre> */}
-    
-    
+
+
     <h1>Recent Chat</h1>
-    {friendwithLastmessage.length ===0 ? (
-      <p>Nothing to show here :(</p>
+    {friendwithLastmessage.length === 0 ? (
+
+      //! Add a Auto quote API;
+
+      <p>Quote</p>
     ) : (
-      friendwithLastmessage.map((friend)=>(
-        <div key={friend.id}>
-          <div>
-            <ChevronRight/>
-          </div>
-          <Link href={`/dashboard/chat/${chatHerfConstructor(session.user.id,friend.id)}`}>
-            <div>
+      friendwithLastmessage.map((friend) => (
+        <div className={styles.main} key={friend.id}>
+          <Link className={styles.bars} href={`/dashboard/chat/${chatHerfConstructor(session.user.id, friend.id)}`}>
+            <div className={styles.imgs}>
               <Image
-              alt={`${friend.email} profile pic`}
-              src={friend.image}
-              width={40}
-              height={40}
+                alt={`${friend.email} profile pic`}
+                src={friend.image}
+                width={60}
+                height={60}
               />
+              <h4>{friend.name}</h4>
             </div>
-            <h4>{friend.name}</h4>
-            <p>{friend.lastmessage.senderId ===session.user.id ? 'You: ' : ''}</p>
-            {friend.lastmessage.text}
+
+            
+            <div className={styles.chat}>
+              
+              <p>
+                {friend.lastmessage.senderId === session.user.id ? 'You: ' : ''}
+              </p>
+              {friend.lastmessage.text}
+              
+            </div>
+
           </Link>
+
 
         </div>
       ))

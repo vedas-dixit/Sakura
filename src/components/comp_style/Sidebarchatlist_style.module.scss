@@ -1,0 +1,14 @@
+.main{
+
+    .links{
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        img{
+            border-radius: 20px;
+        }
+        .name{
+            margin-left: 7px;
+        }
+    }
+}

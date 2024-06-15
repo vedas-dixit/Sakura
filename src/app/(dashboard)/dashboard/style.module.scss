@@ -1,0 +1,32 @@
+.main{
+    display: flex;
+    margin-top: 20px;
+    background-color: rgba(68, 68, 68, 0.264);
+    .bars{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+        text-decoration: none;
+        .imgs{
+            display: flex;
+            align-items: center;
+            
+            img{
+                border-radius: 30px;
+                margin-right: 5px;
+            }
+        }
+        .chat{
+            margin: 10px;
+            display: flex;
+            max-width: 30vw;
+            overflow: hidden;
+            color: rgba(255, 255, 255, 0.624);
+            p{
+                margin-right: 5px;
+            }
+        }
+    }
+}

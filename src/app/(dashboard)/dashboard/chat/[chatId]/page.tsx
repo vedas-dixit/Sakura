@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FC } from "react";
-
+import styles from './style.module.scss'
 interface pageProps {
   params: {
     chatId: string;
@@ -45,28 +45,32 @@ const page = async ({ params }: pageProps) => {
 
   const initialMessages = await getChatMessages(chatId);
 
-  return <div>
-    <div>
-      <div>
-        <div>
-          <Image
-            width={50}
-            height={50}
-            referrerPolicy="no-referrer"
-            src={chatpartner.image}
-            alt={`${chatpartner.name} profile`}
-          />
+  return (
+    <div className={styles.main}>
+      <div className={styles.img_name}>
+        
+          <div>
+            <Image
+              width={80}
+              height={80}
+              referrerPolicy="no-referrer"
+              src={chatpartner.image}
+              alt={`${chatpartner.name} profile`}
+            />
+          </div>
+        
+        <div className={styles.name_email}>
+          <span>{chatpartner.name}</span>
+          <p>{chatpartner.email}</p>
         </div>
-      </div>
-      <div>
-        <span>{chatpartner.name}</span>
-        <h5>{chatpartner.email}</h5>
-      </div>
 
+      </div>
+      <g className={styles.messages}>
+      <Messages SessionImg={session.user.image} chatPartner={chatpartner} initialMessages={initialMessages} sessionId={session.user.id} chatId={chatId} />
+      <ChatInput chatId={chatId} chatPartner={chatpartner} />
+      </g>
     </div>
-    <Messages SessionImg={session.user.image} chatPartner={chatpartner} initialMessages={initialMessages} sessionId={session.user.id} chatId={chatId}/>
-    <ChatInput chatId={chatId} chatPartner={chatpartner} />
-  </div>
+  )
 };
 
 export default page;
