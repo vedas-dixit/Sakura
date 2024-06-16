@@ -52,14 +52,15 @@ const page = async ({ }) => {
               <h4>{friend.name}</h4>
             </div>
 
-            
+
             <div className={styles.chat}>
-              
               <p>
                 {friend.lastmessage.senderId === session.user.id ? 'You: ' : ''}
               </p>
-              {friend.lastmessage.text}
-              
+              {friend.lastmessage.text.length > 40 ?
+                `${friend.lastmessage.text.substring(0, 40)}...` :
+                friend.lastmessage.text
+              }
             </div>
 
           </Link>
