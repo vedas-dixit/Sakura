@@ -17,6 +17,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "encoding": "^0.1.13",
+    "framer-motion": "^11.2.10",
     "lint": "^0.8.19",
     "lucide-react": "^0.376.0",
     "nanoid": "^5.0.7",

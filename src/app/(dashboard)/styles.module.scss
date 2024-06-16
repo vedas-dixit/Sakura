@@ -132,7 +132,36 @@
             padding: 10px;
             border-top: 1px solid #3a3b3d; // Border color for separation
             width: 100%;
-
+            .logout {
+              transform: scale(0.8);
+              transition: transform 0.4s ease; /* Smooth transition for scaling */
+              cursor: pointer;
+              p{
+                position: absolute;
+                z-index: 1;
+                width: 50px;
+                height: 30px;
+              }
+              .tags {
+                opacity: 0;
+                transform: translateY(0) scale(1);
+                transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+              }
+              
+              .tags:hover {
+                opacity: 1;
+                transform: translateY(-70%) scale(1.1);
+              }
+          }
+          
+          /* Define the keyframes for the rotation */
+         
+          
+          /* Apply the animation on hover */
+          .logout:hover {
+              transform: scale(1); /* Scale to 1 */
+              animation: rotate 4s linear infinite; /* Rotate infinitely */
+          }
             .userimg {
               width: 50px;
               height: 50px;

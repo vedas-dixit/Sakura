@@ -1,3 +1,4 @@
+
 import FriendRequestSidebarOptions from '@/components/FriendRequestSidebarOptions'
 import { Icon, Icons } from '@/components/Icons'
 import SidebarChatList from '@/components/SidebarChatList'
@@ -8,9 +9,11 @@ import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { notFound } from 'next/navigation'
 import { FC, ReactNode } from 'react'
 import styles from './styles.module.scss'
+import { motion } from 'framer-motion'
 interface layoutProps {
     children: ReactNode
 }
@@ -32,6 +35,7 @@ const sidebarOptions: SidebarOptions[] = [
 ]
 
 const Layout = async ({ children }: layoutProps) => {
+
     const session = await getServerSession(authOptions)
     if (!session) notFound()
     const friends = await getFriendsByUserId(session.user.id)
@@ -89,7 +93,7 @@ const Layout = async ({ children }: layoutProps) => {
                                                     <FriendRequestSidebarOptions sessionId={session.user.id} initialunseenrequestcount={unseenrequestcount} />
                                                 </li>
                                             </g>
-                                            
+
                                         )
                                     })}
 
@@ -118,7 +122,12 @@ const Layout = async ({ children }: layoutProps) => {
                                             {session.user.email}
                                         </span>
                                     </div>
+                                    
+                                    <g className={styles.logout}>
+                                        <p className={styles.tags}>Logout</p>
                                     <SignoutButton></SignoutButton>
+                                    </g>
+                                    
                                 </div>
 
                             </li>
