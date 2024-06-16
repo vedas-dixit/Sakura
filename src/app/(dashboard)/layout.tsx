@@ -74,9 +74,8 @@ const Layout = async ({ children }: layoutProps) => {
                                     {sidebarOptions.map((option) => {
                                         const Icon = Icons[option.Icon]
                                         return (
-                                            
-                                            <g>
-                                                <li key={option.id}>
+                                            <g key={option.id}>
+                                                <li >
                                                     <Link href={option.herf}>
                                                         <span>
                                                             <Icon></Icon>

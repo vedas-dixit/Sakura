@@ -49,7 +49,7 @@ const FriendRequestSidebarOptions: FC<FriendRequestSidebarOptionsProps> = ({
                 'incomming_friend_requests', friendRequestHandler
             )
         }
-    }, [])
+    }, [sessionId])
 
 
 

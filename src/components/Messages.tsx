@@ -34,7 +34,7 @@ const Messages: FC<MessagesProps> = ({ SessionImg, chatPartner, initialMessages,
             pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`))
             pusherClient.unbind('incomming_message', messageHandler)
         }
-    }, [])
+    }, [chatId])
 
     useEffect(() => {
         scrollDownref.current?.scrollIntoView({ behavior: 'smooth' })
