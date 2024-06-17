@@ -18,7 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={styles.main}>
       <body className={inter.className}>
-        <g className="nones"><p className="pnones"><span className="spans">Sakura</span> on mobile devices? <br></br>It's on the horizon!</p></g>
+      <g className="nones">
+  <p className="pnones">
+    <span className="spans">Sakura</span> on mobile devices? <br></br>
+    It&apos;s on the horizon!
+  </p>
+</g>
       <Providers>
         {children}
         </Providers>
