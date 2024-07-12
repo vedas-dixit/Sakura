@@ -5,7 +5,7 @@
     padding: 10px;
     border-radius: 10px;
     margin-top: 10px;
-
+    gap: 3px;
     textarea {
         flex: 1;
         background: transparent;
@@ -22,17 +22,200 @@
         }
     }
 
-    button {
-        background-color: #007bff;
-        border: none;
-        color: white;
-        padding: 10px 15px;
-        border-radius: 5px;
-        margin-left: 10px;
-        cursor: pointer;
+    // button {
+    //     background-color: #fc9999;
+    //     border: none;
+    //     color: white;
+    //     padding: 10px 15px;
+    //     border-radius: 5px;
+    //     margin-left: 10px;
+    //     cursor: pointer;
 
-        &:disabled {
-            background-color: #555;
-        }
+    //     &:disabled {
+    //         background-color: #555;
+    //     }
+    // }
+    img{
+        width: 90px;
+
     }
+}
+
+.btn24,
+.btn24 *,
+.btn24 :after,
+.btn24 :before,
+.btn24:after,
+.btn24:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.btn24 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  background-color: #f5ebeb;
+  background-image: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-mask-image: -webkit-radial-gradient(#724545, #fff);
+  padding: 0;
+  text-transform: uppercase;
+  
+  &:disabled {
+    cursor: default;
+  }
+  
+  &:-moz-focusring {
+    outline: auto;
+  }
+  
+  svg {
+    display: block;
+    vertical-align: middle;
+  }
+  
+  [hidden] {
+    display: none;
+  }
+  
+  --background: #724545;
+  background: none;
+  overflow: hidden;
+  padding: 0.4rem 1.4rem;
+  position: relative;
+
+  span {
+    display: block;
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+  
+  &:after,
+  &:before {
+    --tilt: 10px;
+    background: #ffe3e3;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: -webkit-clip-path 0.2s ease;
+    transition: clip-path 0.2s ease;
+    transition: clip-path 0.2s ease, -webkit-clip-path 0.2s ease;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  &:after {
+    --thickness: 5px;
+    background: var(--background);
+    height: calc(100% - var(--thickness) * 2);
+    left: var(--thickness);
+    top: var(--thickness);
+    width: calc(100% - var(--thickness) * 2);
+  }
+  
+  &:hover span {
+    transform: translateX(-20px);
+  }
+  
+  &:hover:after,
+  &:hover:before {
+    -webkit-clip-path: polygon(
+      0 0,
+      calc(100% - var(--tilt)) 0,
+      100% 50%,
+      calc(100% - var(--tilt)) 100%,
+      0 100%
+    );
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--tilt)) 0,
+      100% 50%,
+      calc(100% - var(--tilt)) 100%,
+      0 100%
+    );
+  }
+}
+
+
+.btn22,
+.btn22 *,
+.btn22 :after,
+.btn22 :before,
+.btn22:after,
+.btn22:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.btn22 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  background-color: #ffd6d6;
+  background-image: none;
+  color: #b35c5c;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  
+  
+ 
+  margin: 0;
+  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+  padding: 0;
+  text-transform: uppercase;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &:-moz-focusring {
+    outline: auto;
+  }
+
+  svg {
+    display: block;
+    vertical-align: middle;
+  }
+
+  [hidden] {
+    display: none;
+  }
+
+  border-radius: 59rem;
+  border-width: 2px;
+  overflow: hidden;
+  padding: 0.2rem 1rem;
+  position: relative;
+
+  span {
+    mix-blend-mode: difference;
+  }
+
+  &:before {
+    aspect-ratio: 1;
+    background: #fff;
+    border-radius: 50%;
+    content: "";
+    left: -100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) scale(1);
+    transform-origin: left center;
+    transition: transform 0.2s ease;
+    width: 100%;
+  }
+
+  &:hover:before {
+    transform: translateY(-50%) scale(2);
+  }
 }
