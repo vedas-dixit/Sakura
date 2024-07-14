@@ -15,7 +15,8 @@ interface ChatInputProps {
 
 const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoadingSend, setIsLoadingSend] = useState<boolean>(false);
+    const [isLoadingGemini, setIsLoadingGemini] = useState<boolean>(false);
     const [input, setInput] = useState<string>('');
     const [tone, setTone] = useState<string>('happy');
 
@@ -24,9 +25,10 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
 
     const changemsg = async () => {
         if (!input) return;
+        setIsLoadingGemini(true);
 
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        const prompt = `Generate a ${tone} twist for the following message: ${input}`;
+        const prompt = `Take the message: ${input} and make this a ${tone} tone message.`;
 
         try {
             const result = await model.generateContent(prompt);
@@ -36,12 +38,14 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
         } catch (error) {
             console.error("Error generating content", error);
             toast.error('Error generating content');
+        } finally {
+            setIsLoadingGemini(false);
         }
     };
 
     const sendMessage = async () => {
         if (!input) return;
-        setIsLoading(true);
+        setIsLoadingSend(true);
 
         try {
             await axios.post('/api/message/send', { text: input, chatId });
@@ -51,7 +55,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
             console.error("Error sending message", error);
             toast.error('Error sending message');
         } finally {
-            setIsLoading(false);
+            setIsLoadingSend(false);
         }
     };
 
@@ -70,39 +74,52 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={`Message ${chatPartner.name}`}
             />
-            <div className={styles.selector_container} style={{ display: 'flex' }}>
-                <select
-                    value={tone}
-                    onChange={(e) => setTone(e.target.value)}
-                    style={{
-                        backgroundColor: '#724545',
-                        padding: '0.3rem',
-                        border: '3px solid #fc9999',
-                        borderRadius: '34px',
-                        fontSize: '1rem',
-                       
-                        outline: 'none',
-                        transition: 'border-color 0.3s ease',
-                        width: '72px'
-                    }}
-                >
-                    <option value="happy">😄</option>
-                    <option value="sad">😔</option>
-                    <option value="funny">😆</option>
-                </select>
-
-            </div>
+            {input && (
+                <div className={styles.selector_container} style={{ display: 'flex' }}>
+                    <select
+                        value={tone}
+                        onChange={(e) => setTone(e.target.value)}
+                        style={{
+                            backgroundColor: '#724545',
+                            padding: '0.3rem',
+                            border: '3px solid #fc9999',
+                            borderRadius: '34px',
+                            fontSize: '1rem',
+                            outline: 'none',
+                            transition: 'border-color 0.3s ease',
+                            width: '72px',
+                        }}
+                    >
+                        <option value="happy">😄</option>
+                        <option value="sad">😔</option>
+                        <option value="funny">😆</option>
+                    </select>
+                </div>
+            )}
             <motion.div
                 initial={{ y: 0 }}
                 whileHover={{ y: -8 }}
                 transition={{ duration: 0.3 }}
-                
             >
-                <button onClick={changemsg} className={styles.btn22}><span><img src="/gem1.png" alt="" /></span></button>
-                
+                {input && (
+                    <button onClick={changemsg} className={styles.btn22}>
+                        {isLoadingGemini ? (
+                            <div className={styles.loader}></div>
+                        ) : (
+                            <span>
+                                <img src="/gem1.png" alt="Gemini" />
+                            </span>
+                        )}
+                    </button>
+                )}
             </motion.div>
-            <button onClick={sendMessage} className={styles.btn24}>Send</button>
-            
+            <button onClick={sendMessage} className={styles.btn24}>
+                {isLoadingSend ? (
+                    <div className={styles.loader}></div>
+                ) : (
+                    'Send'
+                )}
+            </button>
         </div>
     );
 };

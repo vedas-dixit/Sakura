@@ -84,7 +84,7 @@
     display: none;
   }
   
-  --background: #724545;
+  --background: #363636;
   background: none;
   overflow: hidden;
   padding: 0.4rem 1.4rem;
@@ -161,7 +161,7 @@
 .btn22 {
   -webkit-tap-highlight-color: transparent;
   -webkit-appearance: button;
-  background-color: #ffd6d6;
+  background-color: #363636;
   background-image: none;
   color: #b35c5c;
   cursor: pointer;
@@ -203,7 +203,7 @@
 
   &:before {
     aspect-ratio: 1;
-    background: #fff;
+    background: #2c1d0e;
     border-radius: 50%;
     content: "";
     left: -100%;
@@ -218,4 +218,20 @@
   &:hover:before {
     transform: translateY(-50%) scale(2);
   }
+}
+
+
+.loader {
+  border: 2px solid rgba(255, 255, 255, 0.959);
+  border-top: 4px solid #ca6e6e;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
