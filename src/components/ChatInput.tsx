@@ -120,6 +120,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
                     'Send'
                 )}
             </button>
+            
         </div>
     );
 };
